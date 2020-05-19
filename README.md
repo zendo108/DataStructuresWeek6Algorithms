@@ -1,76 +1,99 @@
-# DataStructuresWeek6Algorithms
-This is a few algorithm for the class discusion
 
-### Bubble Sort
+Asymptotic analysis of your algorithm. Your analysis must include the efficiency of your algorithm expressed in Big Oh, Big Omega, or Big Theta notation as appropriate.
+	
+Asymptotic analysis of your algorithm. 
+--------------------------------------
+Quick Sort algorithm has a worst case scenario of O(n^2)
+This will happen if in each recursion one of the partitions is empty
+then the structure will that that of a simple list.
+For example in my implementation I chose to pick the last item as the Pivot
+Because I am assuming that the array would be randomly unsorted, in which
+case it does not matter where you sample from. Anyways if in this implementation
+I get a sorted list then all sub-partitions one of them will be empty.
 
-Like all comparison based sorting techniques, Bubble Sort is based on comparing two keys and rearranging the associated data in order to place the keys in ascending or descending order. Bubble Sort was one of the first sorting methods created. It is also the simplest. Bubble Sort was so named because as you repeatedly scan the array of records making comparisons the lower value keys gradually "bubble" to the start of the array.
+On the other hand the if the data structure of the partitions has the 
+structure of a binary tree then the time complexity will be O(nlogn)
+So the average time complexity will be Theta(nlogn)
 
-- The bubble sort is typically not leveraged as other simple sorts are favored, but it might have some use for small N (N<25) when the array is nearly sorted to begin with
-- For large N it very slow
-- Asymptotic analysis O(n2) in the worst, but can be O(n) in best case when encountering a nearly sorted array
 
-The bubble sort works by passing sequentially over a list, comparing each value to the one immediately after it. If the first value is greater than the second, their positions are switched. Over a number of passes, at most equal to the number of elements in the list, all of the values drift into their correct positions. Because each pass finds the maximum item and puts it at the end, the portion of the list to be sorted can be reduced at each pass.
+Description of the assignment and how your algorithm works
+----------------------------------------------------------
+This QuickSort Java implementation is commented in every line, explaining 
+the inner works of it.
+It first takes in an array. It has three functions
 
-### Selection Sort
+sort(), part(),swap()
 
-The selection sort is a sorting algorithm that performs an in-pace comparison sort.
 
-- The selection sort is typically relatively inefficient on large arrays (N > 25) and is generally considered less efficient the insertion sort. It typically does, however, perform better than the bubble sort.
-- The selection sort can have reasonable performance for small N (N<25)
-- The selection sort can be preferred over other more complicated sorting algorithms when memory is limited.
-- This sort is useful because it is very easy to implement
-- Asymptotic analysis O(n2) in the worst case
+The sort() function takes no arguments, it extracts the low and the high value of the array
+and it sends this parameters to an auxiliary function, part() that it does two jobs.
+It picks the last item of the partition between low(l) and high(h) and then scans
+the partition from l to h (item < pivot) goes to the right of the pivot and (item > pivot)
+goes to the left, using the swap() function, then when i which is scanning form left to right
+form the beginning is greater than j which is scanning from right to left from the end, the pivot value 
+is swapped with the value of arr[i], basically it puts the pivot right between the lower and higher
+values.
+This class has an overridden sort(l, h) function for the recursive calls.
+The idea is that the sort function will call itself with the newly created partition
+to do the same operation over and over till l==h meaning the the sections has no more values
 
-The selection sort algorithm works as follows:
+Visits parameter tracks the items that have been visited
 
-- Find the minimum value in the list
-- Swap it with the value in the first position
-- Repeat the steps above for the remainder of the list (starting at the second position and advancing each time) Effectively, the list is divided into two parts: the sublist of items already sorted, which is built up from left to right and is found at the beginning, and the sublist of items remaining to be sorted, occupying the remainder of the array.
+Swaps are the count of swaps in the sorting
 
-### Shell Sort 
-Shellsort is a simple extension of insertion sort which gains speed by allowing exchanges of elements that are far apart. The idea is to rearrange the array to give it the property that every hth element (starting anywhere) yields a sorted array. Such an array is said to be hsorted. The shell sort is:
+The getStats() functions puts out the info of the sorting process
+it shows the array size, number of visits and swaps.
 
-- Typically better than all of the O(n2) sorts including selection, insertion, and bubble sort in the average case with large N.
-- Asymptotic analysis is O(n) in the best case
-- Asymptotic analysis is O(n log2n) in the worst case
+This is a much better implementation than the example that implements an insert sort that has a O(n^2) because it has to check every item of the array with the other to make sure it is sorted, and for example if the last item is the smallest, it would have to compare it with and swap it to all of the other items. My implementation of the quick sort will divide the array in sections recursively, cutting down on the number of comparisons and swaps.
+This are the results of the example here given against my implementation.
 
-### Mergesort
+static int[] arr = {23,7,4,5,6,2,10,16,3};
 
-Merge sort algorithm is an optimal sorting algorithm based on divide-and-conquer approach which is an algorithm that takes a larger problem and breaks it into multiple smaller problems that are easier to solve. The mergesort operates as follows:
+Quick Sort (My implementation)
+[2, 3, 4, 5, 6, 7, 10, 16, 23]
+Array length 9
+There were 26 visits and 7 swaps, swap + visit = 33
 
-1. Divide the array to be sorted continuously into two halves.
-2. Step 1 is carried on until there is only one element left in the array. This array will thus be a sorted one, since it consists of only one element.
-3. Join the two sorted sub arrays into one until there is only one sorted array which is the required result.
+Insertion Sort (example given)
+[2, 3, 4, 5, 6, 7, 10, 16, 23]
+Array length 9
+There were 8 visits and 21 swaps, swap + visit = 29
 
-The mergesort is:
 
-- Typically a good sort to use with large N.
-- Asymptotic analysis is typically O(n log n) in the best case
-- Asymptotic analysis is O(n log n) in the worst case
 
-### Quicksort
+static int[] arr = {12,9,4,99,120,1,3,10,23,45,75,69,31,88,101,14,29,91,2,0,77};
+Quick Sort
+[0, 1, 2, 3, 4, 9, 10, 12, 14, 23, 29, 31, 45, 69, 75, 77, 88, 91, 99, 101, 120]
+Array length 21
+There were 84 visits and 23 swaps, swap + visit = 107
 
-Quicksort is a sorting algorithm that, on average, makes O(n log n) comparisons to sort n items. This makes quick sort a fast sorting algorithm in the average case.
+Insertion Sort
+[0, 1, 2, 3, 4, 9, 10, 12, 14, 23, 29, 31, 45, 69, 75, 77, 88, 91, 99, 101, 120]
+Array length 21
+There were 20 visits and 94 swaps, swap + visit = 114
 
-The quicksort algorithm:
 
-- Typically provides the best average case performance of any general purpose sort when N tends to be large.
-- Asymptotic analysis is typically O(n log n) in the best case
-- Asymptotic analysis is O(n2) in the worst case
+I did not include the 1000 item array here for obvious reasons but you can see it in the source code, but the results are here. My QuickSort implementation sorts the same array with 11,848 visits against 999 visits from the Insertion Sort in the example, each visit is one step.
+And my QuickSort did 2,365 swaps vs the 249,634 swaps the Insert had to do to get the same results a little over 10,000% more work considering that swapping in a Insert saves the item value into B visit and then reassigns it to the current value even if it was not swapped and if it is swapped it does one reassignment and one decrementation of j, and here it is evident that the QuickSort strategy is consistently better than the Insertion one.
 
-### Heapsort
+Quick Sort
+Array length 1000
+There were 11848 visits and 2365 swaps, swap + visit = 14,213
 
-Heapsort begins by building a heap out of the data set, and then removing the largest item and placing it at the end of the partially sorted array. After removing the largest item, it reconstructs the heap, removes the largest remaining item, and places it in the next open position from the end of the partially sorted array. This is repeated until there are no items left in the heap and the sorted array is full. Elementary implementations require two arrays - one to hold the heap and the other to hold the sorted elements.
+Insertion Sort
+Array length 1000
+There were 999 visits and 248635 swaps, swap + visit = 249,634
+17 times slower
 
-During extraction, the only space required is that needed to store the heap. To achieve constant space overhead, the heap is stored in the part of the input array not yet sorted.
+With 4000 items gets steeper
+Array length 4000
+There were 58134 visits and 11468 swaps, swap + visit = 69,602
 
-Heapsort uses two heap operations: insertion and root deletion. Each extraction places an element in the last empty location of the array. The remaining prefix of the array stores the unsorted elements.
+Array length 4000
+There were 3999 visits and 4015579 swaps, swap + visit = 4,019,578!!!
+Almost 6000% more work compared to QuickSort here.
 
-### Radix Sort
-
-Radix sort is an algorithm that sorts numbers by processing individual digits. n numbers consisting of k digits each are sorted in O(n · k) time. Radix sort can either process digits of each number starting from the least significant digit (LSD) or the most significant digit (MSD). The LSD algorithm first sorts the list by the least significant digit while preserving their relative order using a stable sort. Then it sorts them by the next digit, and so on from the least significant to the most significant, ending up with a sorted list. While the LSD radix sort requires the use of a stable sort, the MSD radix sort algorithm does not (unless stable sorting is desired). In-place MSD radix sort is not stable. It is common for the counting sort algorithm to be used internally by the radix sort. Hybrid sorting approach, such as using insertion sort for small bins improves performance of radix sort significantly.
-
-Radixsort:
-
-- Asymptotic analysis is O(Kn) in the worst case
-- Asymptotic analysis is O(n2) in the worst case
+This is telling me that there is a exponential difference
+Quick Sort best case scenario 4000*log2(4000)=47,863.14
+Insert Sort best case scenario 40002=16,000,000
+In this case with this random array of 4000 items my quicksort did slightly worse than its ideal scenario and the Insert did a lot better that its total worst, but still the difference is expectedly astounding. 69,602 vs 4,019,578 there's no doubt that for large arrays, as seen in this experiment, over 100 items the Quick Sort is increasingly better.
