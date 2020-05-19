@@ -2,6 +2,8 @@
 import java.util.Arrays;
 
 import com.ivanaranda.classes.InsertionSort;
+import com.ivanaranda.classes.QuickSort;
+
 /**
  * 
  * @author zendo
